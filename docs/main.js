@@ -1,4 +1,4 @@
-import {qs, qsa, ce, el, rv, tc, log} from '../utilities/shortcuts.js'
+import {qs, qsa, ce, el, rv, tc, log} from './utilities/shortcuts.js'
 
 // NAVBAR VERSIONE MOBILE
 function checkScreenSize() {
