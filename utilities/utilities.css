@@ -1,0 +1,290 @@
+/* ===============================
+   RESET CSS (base universale)
+   =============================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Consigliato per layout più prevedibili */
+  height: 100%;
+  width: 100%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased; /* Serve a migliorare la nitidezza dei font su browser WebKit (Safari, Chrome su macOS). Riduce l'effetto "sfocato" del font rendendolo più nitido e più "light", usando un antialiasing basato sui pixel (grayscale antialiasing). */
+  -moz-osx-font-smoothing: grayscale; /* Fa qualcosa di simile per Firefox su macOS: usa antialiasing in scala di grigi invece del subpixel rendering predefinito, rendendo il font più nitido. */
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ===============================
+   VARIABILI CSS (colori, spaziature, font)
+   =============================== */
+
+:root {
+  /* Color Palette */
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+  --color-light: #f8f9fa;
+  --color-dark: #343a40;
+  --color-white: #fff;
+  --color-black: #000;
+
+  /* Spaziature */
+  --space-xxs: 0.25rem;  
+  --space-xs: 0.5rem;   
+  --space-sm: 0.75rem;   
+  --space-md: 1rem;     
+  --space-lg: 1.5rem;   
+  --space-xl: 3rem;     
+  --space-xxl: 5rem;     
+  --space-xxxl: 10rem;       
+
+  /* Tipografia */
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --line-height-base: 1.5;
+}
+
+/* ===============================
+   TIPOGRAFIA BASE
+   =============================== */
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-dark);
+  background-color: var(--color-light);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+  color: var(--color-dark);
+}
+
+p {
+  margin-bottom: var(--space-md);
+  color: var(--color-secondary);
+}
+
+small {
+  font-size: var(--font-size-sm);
+  color: var(--color-secondary);
+}
+
+/* ===============================
+   CLASSI UTILITY (display, flex, grid)
+   =============================== */
+
+
+/* Display */
+.d-block { display: block !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-grid { display: grid !important; }
+.d-none { display: none !important; }
+
+/* Flexbox utilities */
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.flex-nowrap { flex-wrap: nowrap !important; }
+.justify-start { justify-content: flex-start !important; }
+.justify-center { justify-content: center !important; }
+.justify-end { justify-content: flex-end !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-around { justify-content: space-around !important; }
+.align-start { align-items: flex-start !important; }
+.align-center { align-items: center !important; }
+.align-end { align-items: flex-end !important; }
+.align-stretch { align-items: stretch !important; }
+
+/* Grid utilities */
+.grid-cols-1 { grid-template-columns: repeat(1, 1fr) !important; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr) !important; }
+.grid-cols-4 { grid-template-columns: repeat(4, 1fr) !important; }
+.grid-cols-5 { grid-template-columns: repeat(5, 1fr) !important; }
+
+/* Width & Height */
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+
+/* Text utilities */
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-uppercase { text-transform: uppercase !important; }
+.text-lowercase { text-transform: lowercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+.text-nowrap { white-space: nowrap !important; }
+.text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* ===============================
+   ANIMAZIONI COMUNI
+   =============================== */
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Slide In from Left */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.slide-in-left {
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+/* Slide In from Right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.slide-in-right {
+  animation: slideInRight 0.5s ease forwards;
+}
+
+/* Bounce */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-7px); }
+}
+.bounce {
+  animation: bounce 1s infinite;
+}
+/* ===============================
+   ANIMAZIONE PULSE (ingrandisci/rimpicciolisci)
+   =============================== */
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+/* Shake (Scuotimento rapido) */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+.shake {
+  animation: shake 0.5s infinite;
+}
+
+
+/* Pulse Color (Pulsazione colore di sfondo) */
+@keyframes pulseColor {
+  0%, 100% {
+    background-color: var(--color-primary);
+  }
+  50% {
+    background-color: var(--color-secondary);
+  }
+}
+.pulse-color {
+  animation: pulseColor 3s infinite ease-in-out;
+  color: var(--color-white);
+  border: none;
+}
+
+/* Bounce Verticale */
+@keyframes bounceVertical {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.bounce-vertical {
+  animation: bounceVertical 1.5s infinite;
+}
+
+/* Rotate (Rotazione continua) */
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate {
+  animation: rotate 3s linear infinite;
+}
+
+/* Shadow Pulse (Ombra che pulsa) */
+@keyframes shadowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px var(--color-primary);
+  }
+}
+
+.shadow-pulse {
+  animation: shadowPulse 2s infinite ease-in-out;
+}
