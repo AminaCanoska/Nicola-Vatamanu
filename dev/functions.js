@@ -1,4 +1,4 @@
-import {qs, qsa, ce, el, rv, tc, log} from '../utilities/shortcuts.js'
+import {qs, qsa, ce, el, rv, tc, log} from '../docs/utilities/shortcuts.js'
 export * from './functions.js'
 
 const navBar = qs(".navbar");
