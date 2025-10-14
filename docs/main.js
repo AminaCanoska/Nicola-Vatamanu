@@ -1,121 +1,113 @@
-import {qs, qsa, ce, el, rv, tc, log} from './utilities/shortcuts.js'
+import {qs, qsa, ce} from './utilities/shortcuts.js';
 
-// NAVBAR VERSIONE MOBILE
 function checkScreenSize() {
-    const isMobile = window.matchMedia("(max-width: 700px)").matches;
-    const navBar = qs(".navbar");
-    let btnNavbar = qs("#btnNavbar");
-    let btnSocials = qs("#btnSocials");
-    let contatti = null
+  const isMobile = window.matchMedia("(max-width: 700px)").matches;
+  const navBar = qs(".navbar");
+  const btnNavbar = qs("#btnNavbar");
+  const btnSocials = qs("#btnSocials");
 
-    if (!navBar || !btnNavbar || !btnSocials) return;
+  if (!navBar || !btnNavbar || !btnSocials) return;
 
-    // Versione mobile
-    if (isMobile) {
-        btnNavbar.style.setProperty("display", "none", "important");
-        btnSocials.style.setProperty("display", "none", "important");
+  // Rimuovi menu se esiste (utile in tutti i resize)
+  const existingMenu = qs(".menu");
+  if (existingMenu) {
+    existingMenu.remove();
+    document.body.classList.remove('no-scroll');
+  }
 
-        let hamburgerMenu = qs(".menu-open");
-        // Evita duplicazioni di hamburger
-        if (!qs(".menu-open")) {
-            hamburgerMenu = ce("i");
-            hamburgerMenu.classList.add("bi", "bi-list", "menu-open");
-            navBar.appendChild(hamburgerMenu);
-            hamburgerMenu.addEventListener("click", toggleMenu);
+  if (isMobile) {
+    // Nascondi i bottoni originali nella navbar
+    btnNavbar.style.setProperty("display", "none", "important");
+    btnSocials.style.setProperty("display", "none", "important");
+
+    // Controlla se hamburger esiste, altrimenti crealo
+    let hamburgerMenu = qs(".menu-open");
+    if (!hamburgerMenu) {
+      hamburgerMenu = ce("i");
+      hamburgerMenu.classList.add("bi", "bi-list", "menu-open");
+      navBar.appendChild(hamburgerMenu);
+      hamburgerMenu.addEventListener("click", () => {
+        const menuOpen = qs(".menu");
+        if (!menuOpen) {
+          openMenu();
+          hamburgerMenu.classList.replace("bi-list", "bi-x-lg");
+          navBar.style.backgroundColor = 'white';
+        } else {
+          closeMenu();
+          hamburgerMenu.classList.replace("bi-x-lg", "bi-list");
+          navBar.style.backgroundColor = '';
         }
-
-        function toggleMenu() {
-            const isOpen = qs(".menu") !== null;
-            if (!isOpen) {
-                openMenu();
-                hamburgerMenu.classList.remove("bi-list");
-                hamburgerMenu.classList.add("bi-x-lg");
-                navBar.style.backgroundColor = 'white';
-                console.log("Menu aperto");
-            } else {
-                closeMenu();
-                hamburgerMenu.classList.remove("bi-x-lg");
-                hamburgerMenu.classList.add("bi-list");
-                navBar.style.backgroundColor = '';
-                console.log("Menu chiuso");
-            }
-        }
-
-        function openMenu() {
-            // Crea contenitore menu mobile
-            const btnContainer = ce("div");
-            btnContainer.classList.add("menu");
-
-            // Profilo e nome
-            const profile = ce("div");
-            const nameNV = ce("h1");
-            nameNV.textContent = "NICOLA VATAMANU";
-            nameNV.classList.add("hammersmith-one", "nv-mobile");
-            profile.appendChild(nameNV);
-            btnContainer.appendChild(profile);
-
-            // Mostra pulsanti
-            btnNavbar.style.setProperty("display", "", "important");
-            btnSocials.style.setProperty("display", "", "important");
-            btnNavbar.classList.add("btn-navbar-open", "montserrat");
-            btnSocials.classList.add("btn-socials-open");
-
-            const headerBtns = qsa(".header-buttons");
-            headerBtns.forEach(el => {
-                if (el && el.getAttribute('aria-current') === 'current-aria') {
-                    el.classList.add("home");
-                }
-                el.classList.add("menu-btns");
-            });
-
-            //mostra sede
-            let sede =qs("#sede");
-
-              if (sede) {
-                sede.removeEventListener("click", initSedeToggle); 
-
-                sede.addEventListener("click", initSedeToggle);
-              }
-
-            //mostra contatti 
-            if(!contatti){
-              contatti = ce("p")
-              contatti.textContent = "CONTATTI:";
-              contatti.classList.add("montserrat")
-              btnSocials.insertAdjacentElement("afterbegin", contatti);
-            }
-
-            btnContainer.appendChild(btnNavbar);
-            btnContainer.appendChild(btnSocials);
-
-            if (navBar && navBar.parentNode) {
-              navBar.parentNode.insertBefore(btnContainer, navBar.nextSibling);
-            }
-            document.body.classList.add('no-scroll');
-
-        }
-
-        function closeMenu() {
-            console.log("chiuso");
-            const menu = qs(".menu");
-            console.log(menu);
-            menu.remove();
-
-            btnNavbar.style.setProperty("display", "none", "important");
-            btnSocials.style.setProperty("display", "none", "important");
-            btnNavbar.classList.remove("btn-navbar-open");
-            btnSocials.classList.remove("btn-socials-open");
-            document.body.classList.remove('no-scroll');
-        }
-    } else {
-        btnNavbar.style.setProperty("display", "", "important");
-        btnSocials.style.setProperty("display", "", "important");
+      });
     }
+  } else {
+    // Versione desktop: mostra bottoni e rimuovi hamburger + menu
+    btnNavbar.style.setProperty("display", "", "important");
+    btnSocials.style.setProperty("display", "", "important");
+
+    const hamburgerMenu = qs(".menu-open");
+    if (hamburgerMenu) hamburgerMenu.remove();
+
+    document.body.classList.remove('no-scroll');
+  }
+
+  // Funzioni per aprire/chiudere menu
+  function openMenu() {
+    const btnContainer = ce("div");
+    btnContainer.classList.add("menu");
+
+    // Profilo e nome
+    const profile = ce("div");
+    const nameNV = ce("h1");
+    nameNV.textContent = "NICOLA VATAMANU";
+    nameNV.classList.add("hammersmith-one", "nv-mobile");
+    profile.appendChild(nameNV);
+    btnContainer.appendChild(profile);
+
+    // Clona bottoni per menu
+    const clonedNavbar = btnNavbar.cloneNode(true);
+    const clonedSocials = btnSocials.cloneNode(true);
+
+    clonedNavbar.style.setProperty("display", "", "important");
+    clonedSocials.style.setProperty("display", "", "important");
+
+    clonedNavbar.classList.add("btn-navbar-open", "montserrat");
+    clonedSocials.classList.add("btn-socials-open");
+
+    // Aggiungi "CONTATTI:" sopra socials
+    const contatti = ce("p");
+    contatti.textContent = "CONTATTI:";
+    contatti.classList.add("montserrat");
+    clonedSocials.insertAdjacentElement("afterbegin", contatti);
+
+    // Aggiungi classi pulsanti ai bottoni clonati
+    const headerBtns = clonedNavbar.querySelectorAll(".header-buttons");
+    headerBtns.forEach(el => {
+      if (el.getAttribute('aria-current') === 'current-aria') {
+        el.classList.add("home");
+      }
+      el.classList.add("menu-btns");
+    });
+
+    btnContainer.appendChild(clonedNavbar);
+    btnContainer.appendChild(clonedSocials);
+
+    navBar.parentNode.insertBefore(btnContainer, navBar.nextSibling);
+
+    // Blocca scroll corpo
+    document.body.classList.add('no-scroll');
+  }
+
+  function closeMenu() {
+    const menu = qs(".menu");
+    if (menu) menu.remove();
+    document.body.classList.remove('no-scroll');
+  }
 }
 
-// Avvia all'inizio e al resize
+// Eventi
 window.addEventListener("resize", checkScreenSize);
-checkScreenSize();
+window.addEventListener("load", checkScreenSize);
+
 
 
 //NAVBAR: SEDE 
