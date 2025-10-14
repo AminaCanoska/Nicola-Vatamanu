@@ -173,11 +173,13 @@ html, body {
 .home {
   width: 85vw;
   border-radius: 10px;
-  background-color: var(--color-secondary);
+  background-color: var(--color-black);
+  color: var(--color-white);
 }
+
 .menu-btns:hover {
-  background-color: var(--color-primary);
-  color: var(--color-dark);
+  background-color: var(--color-black);
+  color: var(--color-white);
   border: none;
   cursor: pointer;
 }
@@ -198,6 +200,8 @@ html, body {
   border: none;
   padding: 10px 20px;
   border-radius: 30px;
+  width: fit-content;
+  margin: 0 auto;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -410,6 +414,9 @@ span {
 }
 .arrow {
   transform: scaleX(-1);
+}
+.no-underline {
+  text-decoration: none;
 }
 
 /* MASSAGGI: MOBILE */
