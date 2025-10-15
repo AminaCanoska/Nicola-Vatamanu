@@ -192,9 +192,7 @@ function initSedeToggle() {
     
     const ulOrari = ce("ul");
     const giorni = [
-      ["Lunedì - Venerdì", "08:30 - 17:30"],
-      ["Sabato", "09:00 - 13:00"],
-      ["Domenica", "Chiuso"]
+      ["Lunedì - Domenica", "07:00 - 21:00"],
     ];
     
     giorni.forEach(([giorno, orario]) => {
@@ -219,7 +217,7 @@ function initSedeToggle() {
 initSedeToggle();
 
 //INVIO PRENOTAZIONE
-
+/*
 function inizializzaFormPrenotazione() {
   const formPrenotazione = document.getElementById("formPrenotazione");
   const messageBox = document.getElementById("formMessage");
@@ -283,7 +281,7 @@ function inizializzaFormPrenotazione() {
 }
 
 inizializzaFormPrenotazione();
-
+*/
 
 //CAROUSSEL MASSAGGI 
 function initCarousel() {
