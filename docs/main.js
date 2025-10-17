@@ -192,7 +192,8 @@ function initSedeToggle() {
     
     const ulOrari = ce("ul");
     const giorni = [
-      ["Lunedì - Domenica", "07:00 - 21:00"],
+      ["Lunedì - Venerdì", "07:00 - 21:00"],
+      ["Sabaro", "09:00 - 13:00"],
     ];
     
     giorni.forEach(([giorno, orario]) => {
