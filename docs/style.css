@@ -222,13 +222,6 @@ html, body {
   animation: pulse 2s infinite ease-in-out;
 }
 
-/* PRENOTAZIONE CON FORMSPREE*/
-.form-status {
-  background-color: lightgreen;
-  color: green;
-  padding: 5rem;
-}
-
 /* TIPI DI MASSAGGI - CAROUSEL */
 .splide__slide {
   text-align: center;
